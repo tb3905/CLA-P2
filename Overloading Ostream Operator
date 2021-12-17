@@ -1,0 +1,60 @@
+#include <iostream>
+
+using namespace std;
+
+class Person {
+public:
+    Person(const string& first_name, const string& last_name) : first_name_(first_name), last_name_(last_name) {}
+    const string& get_first_name() const {
+      return first_name_;
+    }
+    const string& get_last_name() const {
+      return last_name_;
+    }
+private:
+    string first_name_;
+    string last_name_;
+};
+// Enter your code here.
+ostream& operator<<(ostream& Output, Person& x) 
+{
+  Output << "first_name=" << x.get_first_name() << ","
+         << "last_name=" << x.get_last_name();
+  return Output;}
+
+ class Message {
+private:
+    string txt;
+    static int id;
+    int curt_id;
+public:
+    Message() { curt_id = ++id; }
+    Message(string t){ curt_id = ++id; txt=t; }
+    const string& get_text() {
+        return txt;
+    }
+    bool operator < (const Message& M2) {
+        if(curt_id < M2.curt_id)
+            return true;
+        else
+            return false;
+    }
+};
+int Message::id = 0;
+class MessageFactory {
+public:
+    MessageFactory() {}
+    Message create_message(const string& text){
+        Message m = Message(text);
+        return m;
+    }
+};
+
+
+int main() {
+    string first_name, last_name, event;
+    cin >> first_name >> last_name >> event;
+    auto p = Person(first_name, last_name);
+    cout << p << " " << event << endl;
+    return 0;
+}
